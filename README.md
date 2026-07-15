@@ -73,73 +73,6 @@ RAG_proj/
    * Retrieved context is passed to the LLM
    * LLM generates a grounded response
 
----
-
-## Installation
-
-### 1. Clone the repository
-
-```bash
-git clone <repository-url>
-cd RAG_proj
-```
-
-### 2. Install dependencies
-
-```bash
-npm install
-```
-
-> Important: This project requires **pdf-parse v1**
-
-```bash
-npm install pdf-parse@^1
-```
-
----
-
-## Environment Variables
-
-Create a `.env` file in the project root:
-
-```env
-OPENAI_API_KEY=your_api_key_here
-QDRANT_URL=http://localhost:6333
-QDRANT_COLLECTION=documents
-```
-
----
-
-## Running Qdrant
-
-Using Docker (recommended):
-
-```bash
-docker run -p 6333:6333 qdrant/qdrant
-```
-
-Access Qdrant dashboard:
-
-```
-http://localhost:6333/dashboard
-```
-
----
-
-## Running the Project
-
-```bash
-node server.js
-```
-
-Server will start on:
-
-```
-http://localhost:3000
-```
-
----
-
 ## Core RAG Logic (Key Concept)
 
 ```js
@@ -154,49 +87,6 @@ This line:
 
 These chunks are then injected into the LLM prompt as **context**.
 
----
-
-## Empty Context Handling
-
-If Qdrant contains no data or no relevant matches are found:
-
-* Retrieval returns an empty array
-* The system safely responds with an informational message
-* Prevents hallucinated answers
-
-Recommended pattern:
-
-```js
-if (relevantChunks.length === 0) {
-  return "I don't have enough information to answer this based on the uploaded documents.";
-}
-```
-
----
-
-## Common Issues & Fixes
-
-### 1. `ERR_MODULE_NOT_FOUND: @langchain/core`
-
-```bash
-npm install @langchain/core
-```
-
-### 2. `pdf-parse` not found or incompatible
-
-```bash
-npm install pdf-parse@^1
-```
-
-LangChain PDFLoader currently does **not support pdf-parse v2**.
-
-### 3. Qdrant dashboard shows no graph
-
-* Ensure data has been indexed
-* Verify correct collection name
-* Confirm vectors are being inserted successfully
-
----
 
 ## Future Improvements
 
@@ -205,12 +95,6 @@ LangChain PDFLoader currently does **not support pdf-parse v2**.
 * Metadata-based filtering
 * Conversation memory
 * Authenticated multi-user document spaces
-
----
-
-## License
-
-MIT License
 
 ---
 
